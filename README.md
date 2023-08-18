@@ -20,7 +20,7 @@ Este é um pequeno projeto de lista de tarefas que utiliza tecnologias modernas 
 - [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS): Mecanismo de segurança para controlar solicitações entre diferentes origens.
 - [Mongoose](https://mongoosejs.com/): Biblioteca para interagir com o MongoDB.
 
-### Requisitos
+## Requisitos
 
 - [NodeJS](https://nodejs.org/)
 
