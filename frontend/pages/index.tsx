@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Comfortaa, Questrial } from 'next/font/google';
 import Task from '../components/Task';
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import TaskBody from '../models/task';
 import UpdateBody from '../models/update';
 
@@ -42,11 +42,6 @@ export default function Home(){
         if(!csrfTokenState) return
         getTasks()
     }, [csrfTokenState])
-
-    useEffect(() => {
-        const search_input = document.getElementById('search')
-        search_input?.addEventListener('change', (ev) => filterTasks(ev))
-    }, [])
     
     useEffect(() => {
         filterTasks()
@@ -71,13 +66,19 @@ export default function Home(){
         setTasksElements(tasksEl)
     }, [tasks])
 
-    async function filterTasks(ev? : Event) {
+    async function filterTasks(ev? : FormEvent<HTMLElement> | Event) {
         var target: Element | HTMLElement | EventTarget | null = document.getElementById('search')
         if(ev){
             ev.preventDefault()
-            target = ev.target
+            target = document.querySelector('#search')
         }
+        if(currentFilter === 'default') {
+            setCurrentFilter('all')
+        }
+
         let filtered : [] = []
+        // @ts-ignore
+        if (target.value === '') {filtered = tasks}
         switch(currentFilter) {
             case 'all' || 'default':
                 // @ts-ignore
@@ -143,7 +144,6 @@ export default function Home(){
             title: title,
             done: done
         }
-        console.log(toUpdate)
 
         await axios.put(`http://localhost:8080/tasks/update/${_id}`, toUpdate).then(() => getTasks()).catch(() => {
             toast.error('Poxa! Ocorreu um erro ao atualizar a tarefa, tente novamente em alguns segundos...', {
@@ -215,11 +215,13 @@ export default function Home(){
                         </div>
                     </div>
                     <div className='w-42 h-1/2 bg-neutral-700 m-4 flex flex-row rounded-full'>
-                        <input id='search' type='text' autoComplete='off' placeholder='Pesquise tarefas...' className={`mx-1 w-3/4 px-2 h-full bg-transparent outline-none text-md text-white ${comfortaa.className}`}/>
-                        <label htmlFor="submit_search" className='btn w-1/4 rounded-full'>
-                            <SearchRoundedIcon/>
-                        </label>
-                        <input type="button" id='submit_search'/>
+                        <form onSubmit={(ev) => filterTasks(ev)} className='w-full h-full flex flex-row'>
+                            <input id='search' type='text' autoComplete='off' placeholder='Pesquise tarefas...' className={`mx-1 w-3/4 px-2 h-full bg-transparent outline-none text-md text-white ${comfortaa.className}`}/>
+                            <label htmlFor="submit_search" className='btn w-1/4 rounded-full'>
+                                <SearchRoundedIcon/>
+                            </label>
+                            <input type="button" id='submit_search'/>
+                        </form>
                     </div>
                 </div>
             </header>
