@@ -48,7 +48,7 @@ npm run start
 ```
 npm run build
 ```
-7. Pronto! Agora basta iniciar o backend comando no terminal 2:
+7. Pronto! Agora basta iniciar o backend usando este comando no terminal 2:
 ```
 npm run start
 ```
