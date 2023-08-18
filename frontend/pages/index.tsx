@@ -82,15 +82,15 @@ export default function Home(){
         switch(currentFilter) {
             case 'all' || 'default':
                 // @ts-ignore
-                filtered = tasks.filter((t: TaskBody) => t.title.includes(target.value))
+                filtered = tasks.filter((t: TaskBody) => t.title.toLowerCase().includes(target.value.toLowerCase()))
                 break
             case 'pending':
                 // @ts-ignore
-                filtered = tasks.filter((t: TaskBody) => t.title.includes(target.value) && !t.done)
+                filtered = tasks.filter((t: TaskBody) => t.title.toLowerCase().includes(target.value.toLowerCase()) && !t.done)
                 break
             case 'done':
                 // @ts-ignore
-                filtered = tasks.filter((t: TaskBody) => t.title.includes(target.value) && t.done)
+                filtered = tasks.filter((t: TaskBody) => t.title.toLowerCase().includes(target.value.toLowerCase()) && t.done)
                 break
             }
         const tasksEl: never[] | any = filtered.map((task: TaskBody, index) => (
