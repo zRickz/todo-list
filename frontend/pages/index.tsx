@@ -67,6 +67,7 @@ export default function Home(){
     }, [tasks])
 
     async function filterTasks(ev? : FormEvent<HTMLElement> | Event) {
+        if(!csrfTokenState) return
         var target: Element | HTMLElement | EventTarget | null = document.getElementById('search')
         if(ev){
             ev.preventDefault()
@@ -229,7 +230,7 @@ export default function Home(){
             <section id='tasks_panel' className='relative flex flex-row flex-wrap w-full h-full overflow-y-auto justify-center'>
                 {tasksElements.length !== 0 ? tasksElements 
                 :
-                <div className='text-white w-full h-full flex items-center justify-center'>
+                <div className='text-white w-full h-full flex items-center justify-center select-none'>
                     <h6 className={`${questrial.className} text-2xl opacity-30`}>{currentFilter === 'default' ? "Tudo está tão quieto..." : "Nenhum resultado..."}</h6>
                 </div>
                 }    
