@@ -7,6 +7,7 @@ Este é um pequeno projeto de lista de tarefas que utiliza tecnologias modernas 
 ### Frontend
 
 - [React](https://reactjs.org/): Biblioteca para construção de interfaces de usuário.
+- [TailwindCSS](https://tailwindcss.com/): Biblioteca para definir propriedades CSS por meio de classes.
 - [Next.js](https://nextjs.org/): Framework React com renderização do lado do servidor e outras funcionalidades.
 - [Axios](https://axios-http.com/): Cliente HTTP para fazer requisições à API.
 - [react-toastify](https://fkhadra.github.io/react-toastify/): Componente de notificação elegante para React.
