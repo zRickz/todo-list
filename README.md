@@ -38,8 +38,12 @@ cd frontend
 ```
 npm install
 ```
-5. Pronto! Agora basta iniciar ambos os projetos com o comando:
+5. No terminal 2, use o seguinte comando:
+```
+npm run build
+```
+6. Pronto! Agora basta iniciar ambos os projetos com o comando:
 ```
 npm run start
 ```
-6. Depois que tudo estiver iniciado, você poderá acessar a aplicação pelo link [http://localhost:3000/](http://localhost:3000/)
+7. Depois que tudo estiver iniciado, você poderá acessar a aplicação pelo link [http://localhost:3000/](http://localhost:3000/)
