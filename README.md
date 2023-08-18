@@ -44,7 +44,7 @@ npm install
 npm run start
 ```
 
-6. No terminal 2, use o seguinte comando:
+6. Depois de ter iniciado o backend(seguindo o comando acima), use o seguinte comando no terminal 2:
 ```
 npm run build
 ```
