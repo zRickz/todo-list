@@ -165,7 +165,7 @@ export default function Home(){
         <main className="relative w-screen h-screen flex flex-col bg-neutral-800">
             <ToastContainer/>
             <header className="relative w-full h-16 flex justify-between bg-neutral-900">
-                <div id='buttons' className='m-4 w-1/3 flex flex-row relative justify-between'> 
+                <div id='buttons' className='m-4 w-full flex flex-row relative justify-between'> 
                     <div>
                         {
                             displayNewTaskMenu ? 
