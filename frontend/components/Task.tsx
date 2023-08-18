@@ -3,6 +3,7 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import TimeConverter from '../utils/time_converter';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
+import SaveAsRoundedIcon from '@mui/icons-material/SaveAsRounded';
 import { useState, useEffect } from 'react';
 
 interface TaskProps {
@@ -28,6 +29,10 @@ const Task: FC<TaskProps> = ({ title, done, created_at, fontsClass, onDone, onDe
             await onDone(_id, done=true)
         }else{
             const new_title = document.querySelector(`#new_title_${_id}`)
+            // @ts-ignore
+            if (new_title.value.replace(' ', '') === ''){
+                return setEditPanelDisplayed(false)
+            };
             // @ts-ignore
             await onDone(_id, done=done, title=new_title.value)
             setEditPanelDisplayed(false)
@@ -63,13 +68,18 @@ const Task: FC<TaskProps> = ({ title, done, created_at, fontsClass, onDone, onDe
                             {done ? null : 
                                 <h6 className={`relative s${fontsClass[0]} text-gray-500 text-xs m-2 w-1/2`}>Criado em: {`${TimeConverter(created_at)}`}</h6>
                             }
-                            <div className={`btns h-14 flex flex-row rounded items-center justify-center ${done ? 'w-full' : 'w-1/2'}`}>
-                                <div role='button' onClick={async () => await onDelete(_id)} className='relative w-11 h-11 bg-neutral-900 rounded-full m-1 hover:bg-red-500 duration-300 transition-all flex justify-center items-center'>
-                                    <DeleteOutlineRoundedIcon className='text-white'/>
-                                </div>
+                            <div className={`btns h-14 flex flex-row rounded items-center ${editPanelDisplayed ? 'p-1 justify-end' : 'justify-center'} ${done ? 'w-full' : 'w-1/2'}`}>
+                                { editPanelDisplayed ? null :
+                                    <div role='button' onClick={async () => await onDelete(_id)} className='relative w-11 h-11 bg-neutral-900 rounded-full m-1 hover:bg-red-500 duration-300 transition-all flex justify-center items-center'>
+                                        <DeleteOutlineRoundedIcon className='text-white'/>
+                                    </div>
+                                }
                                 {done ? null : (
                                     <div role='button' onClick={async (ev) => Check(ev)} className='relative w-11 h-11 bg-neutral-900 rounded-full m-1 hover:bg-green-700 duration-300 transition-all flex justify-center items-center'>
-                                        <CheckRoundedIcon className='text-white'/>
+                                        {
+                                            !editPanelDisplayed ? <CheckRoundedIcon className='text-white'/> : <SaveAsRoundedIcon className='text-white'/>
+                                        }
+                                        
                                     </div>
                                 )}
                             </div>
