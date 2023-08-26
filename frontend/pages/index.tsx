@@ -6,10 +6,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Comfortaa, Questrial } from 'next/font/google';
 import Task from '../components/Task';
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import TaskBody from '../models/task';
 import UpdateBody from '../models/update';
-
 import axios from 'axios';
 
 const comfortaa = Comfortaa({
@@ -23,9 +22,9 @@ const questrial = Questrial({
 })
 
 export default function Home(){
-    const [csrfTokenState, setCsrfState] = useState(false);
-    const [displayNewTaskMenu, setNewTaskMenuDisplayed] = useState(false);
-    const [currentFilter, setCurrentFilter] = useState('default');
+    const [csrfTokenState, setCsrfState] = useState<boolean | string>(false);
+    const [displayNewTaskMenu, setNewTaskMenuDisplayed] = useState<boolean>(false);
+    const [currentFilter, setCurrentFilter] = useState<string>('default');
 
     axios.get('http://localhost:8080/token').then((response) => {
         axios.defaults.headers.common['csrf-token'] = response.data.token;
@@ -36,7 +35,7 @@ export default function Home(){
         setCsrfState(true)
     });
 
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState<any[]>([]);
 
     useEffect(() => {
         if(!csrfTokenState) return
@@ -47,11 +46,11 @@ export default function Home(){
         filterTasks()
     }, [currentFilter])
 
-    const [tasksElements, setTasksElements] = useState([]);
+    const [tasksElements, setTasksElements] = useState<any[]>([]);
 
     useEffect(() => {
         if(!tasks) return
-        const tasksEl: never[] | any = tasks.map((task: TaskBody, index) => (
+        const tasksEl: any[] = tasks.map((task: TaskBody) => (
             <Task
                 key={task._id}
                 _id={task._id}
@@ -77,7 +76,7 @@ export default function Home(){
             setCurrentFilter('all')
         }
 
-        let filtered : [] = []
+        let filtered: Array<any> = []
         // @ts-ignore
         if (target.value === '') {filtered = tasks}
         switch(currentFilter) {
@@ -94,7 +93,7 @@ export default function Home(){
                 filtered = tasks.filter((t: TaskBody) => t.title.toLowerCase().includes(target.value.toLowerCase()) && t.done)
                 break
             }
-        const tasksEl: never[] | any = filtered.map((task: TaskBody, index) => (
+        const tasksEl: any = filtered.map((task: TaskBody) => (
             <Task
                 key={task._id}
                 _id={task._id}
