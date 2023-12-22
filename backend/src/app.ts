@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-mongoose.connect('mongodb+srv://facilita:system@facilita.u9qrdzj.mongodb.net/todo').then(() => 
+mongoose.connect('<MONGODB_URL_HERE').then(() => 
     console.log('Banco de dados conectado com sucesso!')
 ).catch(() => console.log('Erro ao se conectar com o banco de dados...'))
 
